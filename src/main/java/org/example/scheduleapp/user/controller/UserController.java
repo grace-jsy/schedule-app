@@ -30,6 +30,8 @@ public class UserController {
             @RequestBody UpdateUserRequestDto request) {
 
         UserResponseDto userResponseDto = userService.updateUser(id, request.getPassword());
+
+        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
 }
