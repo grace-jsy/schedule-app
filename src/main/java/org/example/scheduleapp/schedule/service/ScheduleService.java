@@ -17,7 +17,7 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-    @Transactional
+    @Transactional // 일정 생성
     public ScheduleResponseDto createPost(String title, String contents, Long userId) {
 
     User user = userRepository.findById(userId).orElseThrow(
@@ -29,5 +29,15 @@ public class ScheduleService {
         Schedule savedPost = scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(savedPost.getId(), savedPost.getTitle(), savedPost.getContents(), savedPost.getUser().getUsername());
+    }
+
+    @Transactional // 일정 단건 조회
+    public ScheduleResponseDto getSchedule(Long id) {
+
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User not found")
+        );
+
+        return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContents(), schedule.getUser().getUsername());
     }
 }
