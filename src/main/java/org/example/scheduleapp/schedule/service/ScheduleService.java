@@ -10,6 +10,8 @@ import org.example.scheduleapp.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -39,5 +41,14 @@ public class ScheduleService {
         );
 
         return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContents(), schedule.getUser().getUsername());
+    }
+
+    @Transactional // 일정 모두 조회
+    public List<ScheduleResponseDto> getSchedules() {
+
+        return scheduleRepository.findAll()
+                .stream()
+                .map(ScheduleResponseDto::toDto)
+                .toList();
     }
 }

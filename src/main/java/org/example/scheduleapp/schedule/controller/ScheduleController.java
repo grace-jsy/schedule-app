@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/schedules")
@@ -31,6 +33,16 @@ public class ScheduleController {
 
         ScheduleResponseDto scheduleResponseDto = scheduleService.getSchedule(id);
 
-        return new  ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
+
+    // 일정 전체 조회
+    @GetMapping
+    public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
+
+        List<ScheduleResponseDto> scheduleResponseDtos = scheduleService.getSchedules();
+
+        return new ResponseEntity<>(scheduleResponseDtos, HttpStatus.OK);
+    }
+
 }
