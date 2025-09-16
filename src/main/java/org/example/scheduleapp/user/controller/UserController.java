@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.scheduleapp.common.consts.Const;
 import org.example.scheduleapp.user.dto.UserResponseDto;
 import org.example.scheduleapp.user.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,9 @@ public class UserController {
     @GetMapping("/me") // 내 정보 조회
     public ResponseEntity<UserResponseDto> getMe(@SessionAttribute(name = Const.LOGIN_USER) Long id) {
 
-        userService.getMe(id);
+        UserResponseDto userResponseDto = userService.getMe(id);
+
+        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
 }
