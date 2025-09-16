@@ -1,5 +1,6 @@
 package org.example.scheduleapp.auth.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.scheduleapp.auth.dto.AuthRequest;
 import org.example.scheduleapp.auth.dto.AuthResponse;
@@ -25,7 +26,6 @@ public class AuthController {
         SignUpResponseDto signUpResponseDto = authService.signUp(request.getName(), request.getEmail(), request.getPassword());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(AuthResponse.success("Welcome!", signUpResponseDto);
-
+                .body(AuthResponse.success("Welcome!", signUpResponseDto));
     }
 }
