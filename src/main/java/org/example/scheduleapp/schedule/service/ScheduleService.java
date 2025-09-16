@@ -76,4 +76,13 @@ public class ScheduleService {
 
         return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getTitle(), savedSchedule.getContents(), savedSchedule.getUser().getUsername());
     }
+
+    public void deleteSchedule(Long id) {
+
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Schedule not found")
+        );
+
+        scheduleRepository.delete(schedule);
+    }
 }
