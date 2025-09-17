@@ -2,6 +2,7 @@ package org.example.scheduleapp.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.scheduleapp.common.consts.Const;
+import org.example.scheduleapp.user.dto.DeleteUserRequestDto;
 import org.example.scheduleapp.user.dto.UpdateUserRequestDto;
 import org.example.scheduleapp.user.dto.UserResponseDto;
 import org.example.scheduleapp.user.service.UserService;
@@ -34,4 +35,11 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    @DeleteMapping("/me") // 내 정보 삭제(탈퇴)
+    public ResponseEntity<Void> deleteUser(@SessionAttribute(name = Const.LOGIN_USER) Long id, @RequestBody DeleteUserRequestDto request) {
+
+        userService.deleteUser(id, request.getPassword());
+
+        return ResponseEntity.noContent().build();
+    }
 }

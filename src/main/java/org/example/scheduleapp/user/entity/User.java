@@ -24,6 +24,9 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
+    // 탈퇴 여부 표시용
+    private boolean deleted = false;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -32,5 +35,13 @@ public class User extends BaseEntity{
 
     public void updateUser(String password) {
         this.password = password;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
