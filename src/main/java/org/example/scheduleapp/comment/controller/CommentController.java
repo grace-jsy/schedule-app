@@ -25,22 +25,22 @@ public class CommentController {
             @PathVariable Long scheduleId,
             @RequestBody CreateCommentRequest request
     ) {
-        return ResponseEntity.ok(commentService.save(userId, scheduleId, request.getContents()));
+        return ResponseEntity.ok(commentService.save(userId, scheduleId, request.getContent()));
     }
 
     // 댓글 조회
-    @GetMapping("/comments/{scheduleId}/comments")
+    @GetMapping("/schedules/{scheduleId}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@PathVariable Long scheduleId) {
         return ResponseEntity.ok(commentService.getComments(scheduleId));
     }
 
     // 댓글 수정
-    @PutMapping("/comment/{commentId}")
+    @PutMapping("/comments/{commentId}")
     public ResponseEntity<CommentResponse> updateComment(
             @SessionAttribute(name = Const.LOGIN_USER) Long userId,
             @PathVariable Long commentId,
             @RequestBody CommentUpdateRequestDto request) {
-        return ResponseEntity.ok(commentService.updateComment(userId, commentId, request.getContents()));
+        return ResponseEntity.ok(commentService.updateComment(userId, commentId, request.getContent()));
     }
 
     // 댓글 삭제

@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class CreateCommentRequest {
 
-    private final String contents;
+    private final String content;
 
-    public CreateCommentRequest(String contents) {
-        this.contents = contents;
+    public CreateCommentRequest(String content) {
+        this.content = content;
     }
 }
