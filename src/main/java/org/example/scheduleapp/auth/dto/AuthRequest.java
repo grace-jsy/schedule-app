@@ -14,4 +14,10 @@ public class AuthRequest {
 
     @NotEmpty(message = "Password is required.")
     private String password;
+
+    public AuthRequest(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

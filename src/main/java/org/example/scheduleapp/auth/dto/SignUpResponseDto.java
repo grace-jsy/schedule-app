@@ -1,5 +1,8 @@
 package org.example.scheduleapp.auth.dto;
 
+import lombok.Getter;
+
+@Getter
 public class SignUpResponseDto {
 
     private final Long id;
