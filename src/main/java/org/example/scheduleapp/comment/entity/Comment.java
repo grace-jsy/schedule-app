@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.scheduleapp.common.entity.BaseEntity;
+import org.example.scheduleapp.schedule.entity.Schedule;
 import org.example.scheduleapp.user.entity.User;
 
 @Getter
@@ -18,5 +19,20 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
+    @Column(nullable = false, length = 100)
+    private String contents;
+
+    public Comment(User user, Schedule schedule, String contents) {
+        this.user = user;
+        this.schedule = schedule;
+        this.contents = contents;
+    }
+
+    public void updateContent(String content) {
+        this.contents = content;
+    }
 }
