@@ -76,4 +76,22 @@ public class CommentService {
 
         return new CommentResponse(updateComment.getId(), updateComment.getContents());
     }
+
+    @Transactional // 댓글 삭제
+    public void deleteComment(Long userId, Long commentId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Not found user")
+        );
+
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new EntityNotFoundException("Not found comment")
+        );
+
+        if(!comment.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Only the author can edit");
+        }
+
+        commentRepository.delete(comment);
+    }
+
 }

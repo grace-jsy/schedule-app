@@ -42,4 +42,11 @@ public class CommentController {
             @RequestBody CommentUpdateRequestDto request) {
         return ResponseEntity.ok(commentService.updateComment(userId, commentId, request.getContents()));
     }
+
+    // 댓글 삭제
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@SessionAttribute(name = Const.LOGIN_USER) Long userId, @PathVariable Long commentId) {
+        commentService.deleteComment(userId, commentId);
+        return ResponseEntity.noContent().build();
+    }
 }
