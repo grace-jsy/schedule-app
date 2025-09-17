@@ -36,6 +36,8 @@ public class AuthController {
         SignInResponseDto result = authService.signIn(request);
 
         HttpSession session = httpServletRequest.getSession();
-        session.getAttribute(Const.LOGIN_USER, result.getId());
+        session.setAttribute(Const.LOGIN_USER, result.getId());
+
+        return ResponseEntity.noContent().build();
     }
 }
