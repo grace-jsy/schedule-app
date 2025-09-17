@@ -16,3 +16,6 @@ A Spring Boot application for managing schedules and comments with user authenti
 - Spring Data JPA
 - MySQL
 - Gradle
+
+##ERD
+<img width="598" height="491" alt="스크린샷 2025-09-17 오후 9 04 09" src="https://github.com/user-attachments/assets/c378189a-87f9-4bd1-a71e-a382e4ead12d" />
