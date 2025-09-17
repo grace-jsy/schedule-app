@@ -41,7 +41,7 @@ public class CommentService {
         return new CreateCommentResponse(savedComment.getContents());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 댓글 조회
     public List<CommentResponse> getComments(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new EntityNotFoundException("Not found schedule")
@@ -54,5 +54,26 @@ public class CommentService {
                         comment.getId(),
                         comment.getContents()
                 )).toList();
+    }
+
+    @Transactional // 댓글 수정
+    public CommentResponse updateComment(Long userId, Long commentId, String content) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Not found user")
+        );
+
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new EntityNotFoundException("Not found comment")
+        );
+
+        if(!comment.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Only the author can edit");
+        }
+
+        comment.updateContent(content);
+
+        Comment updateComment = commentRepository.save(comment);
+
+        return new CommentResponse(updateComment.getId(), updateComment.getContents());
     }
 }

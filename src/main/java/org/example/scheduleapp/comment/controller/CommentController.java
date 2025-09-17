@@ -2,6 +2,7 @@ package org.example.scheduleapp.comment.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.scheduleapp.comment.dto.CommentResponse;
+import org.example.scheduleapp.comment.dto.CommentUpdateRequestDto;
 import org.example.scheduleapp.comment.dto.CreateCommentRequest;
 import org.example.scheduleapp.comment.dto.CreateCommentResponse;
 import org.example.scheduleapp.comment.service.CommentService;
@@ -31,5 +32,14 @@ public class CommentController {
     @GetMapping("/comments/{scheduleId}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@PathVariable Long scheduleId) {
         return ResponseEntity.ok(commentService.getComments(scheduleId));
+    }
+
+    // 댓글 수정
+    @PutMapping("/comment/{commentId}")
+    public ResponseEntity<CommentResponse> updateComment(
+            @SessionAttribute(name = Const.LOGIN_USER) Long userId,
+            @PathVariable Long commentId,
+            @RequestBody CommentUpdateRequestDto request) {
+        return ResponseEntity.ok(commentService.updateComment(userId, commentId, request.getContents()));
     }
 }
